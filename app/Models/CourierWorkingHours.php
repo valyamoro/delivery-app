@@ -20,4 +20,9 @@ class CourierWorkingHours extends Model
         return $this->belongsTo(Courier::class);
     }
 
+    protected function serializeDate(\DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d H:i');
+    }
+
 }
