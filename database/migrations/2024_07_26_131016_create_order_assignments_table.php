@@ -10,8 +10,10 @@ return new class extends Migration
     {
         Schema::create('order_assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
-            $table->foreignId('courier_id')->constrained('couriers')->onDelete('cascade');
+            $table->integer('order_id');
+//                ->constrained('orders')->onDelete('cascade');
+            $table->integer('courier_id');
+//            ->constrained('couriers')->onDelete('cascade');
             $table->timestamp('assign_time');
             $table->timestamps();
         });

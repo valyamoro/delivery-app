@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Courier;
 
 use App\Http\Requests\BaseFormRequest;
+use App\Rules\CorrectWorkingHours;
 use App\Rules\TimeRange;
 
 class CouriersPostRequest extends BaseFormRequest
@@ -16,10 +17,14 @@ class CouriersPostRequest extends BaseFormRequest
     {
         return [
             'data' => 'required|array',
-            'data.*.courier_type' => 'required|string|in:foot,bike,car',
+            'data.*.courier_type' => 'required|string|exists:courier_types,name',
             'data.*.regions' => 'required|array',
-            'data.*.regions.*' => 'required|int',
-            'data.*.working_hours' => 'required|array',
+            'data.*.regions.*' => 'required|int|exists:regions,id',
+            'data.*.working_hours' => [
+                'required',
+                'array',
+                new CorrectWorkingHours(),
+            ],
             'data.*.working_hours.*' => [
                 'required',
                 new TimeRange(),
