@@ -13,7 +13,7 @@ class CheckOrderAssigned implements ValidationRule
         $orderAssignments = OrderAssignment::where('order_id', '=', $value)->get();
 
         if ($orderAssignments->toArray() !== []) {
-            $fail('Заказ #' . $value . ' уже назначен другому курьеру!');
+            $fail('Заказ #' . $value . ' уже назначен курьеру!');
         }
     }
 }

@@ -17,8 +17,11 @@ class OrdersPostRequest extends BaseFormRequest
         return [
             'data' => 'required|array',
             'data.*.weight' => 'required|numeric',
-            'data.*.region' => 'required|integer',
-            'data.*.delivery_hours' => ['required', new TimeRange()],
+            'data.*.region' => 'required|int|exists:regions,id',
+            'data.*.delivery_hours' => [
+                'required',
+                new TimeRange(),
+            ],
         ];
     }
 

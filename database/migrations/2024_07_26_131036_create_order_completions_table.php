@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Region;
+use App\Models\Courier;
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -9,20 +10,23 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('order_completions', function (Blueprint $table) {
             $table->id();
-            $table->float('weight');
-            $table->foreignIdFor(Region::class)
+            $table->foreignIdFor(Order::class)
                 ->constrained()
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-            $table->string('delivery_hours');
+            $table->foreignIdFor(Courier::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->timestamp('complete_time');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_completions');
     }
 };

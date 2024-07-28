@@ -18,12 +18,12 @@ class CheckCourierAvailability implements ValidationRule
         $available = false;
 
         $courier = Courier::findOrFail($this->courierId);
-        $workingHours = $courier->working_hours;
+        $workingHours = $courier->workingHours;
 
         foreach ($workingHours as $workingHour) {
             $datetime = Carbon::createFromFormat('Y-m-d H:i', $value);
 
-            [$startTime, $endTime] = explode('-', $workingHour);
+            [$startTime, $endTime] = explode('-', $workingHour->working_hours);
 
             $startTime = Carbon::createFromTimeString($startTime);
             $endTime = Carbon::createFromTimeString($endTime);

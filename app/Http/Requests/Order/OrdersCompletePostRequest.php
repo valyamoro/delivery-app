@@ -3,8 +3,10 @@
 namespace App\Http\Requests\Order;
 
 use App\Http\Requests\BaseFormRequest;
+use App\Rules\CheckCourierAssignment;
 use App\Rules\CheckOrderCompleted;
 use App\Rules\CheckOrderNoAssigned;
+use App\Rules\CompleteTimeMoreThanAssignTime;
 
 class OrdersCompletePostRequest extends BaseFormRequest
 {
@@ -22,9 +24,17 @@ class OrdersCompletePostRequest extends BaseFormRequest
                 'integer',
                 'exists:orders,id',
                 new CheckOrderCompleted(),
+                new CheckCourierAssignment($this->input('courier_id')),
                 new CheckOrderNoAssigned(),
             ],
-            'complete_time' => 'required|date_format:Y-m-d H:i'
+            'complete_time' => [
+                'required',
+                'date_format:Y-m-d H:i',
+                new CompleteTimeMoreThanAssignTime(
+                    $this->input('courier_id'),
+                    $this->input('order_id'),
+                ),
+            ]
         ];
     }
 
