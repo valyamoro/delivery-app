@@ -16,6 +16,11 @@ class CheckCourierAssignment implements ValidationRule
     {
         $orderAssignment = OrderAssignment::where('order_id', '=', $value)->first();
 
+        if ($orderAssignment === null) {
+            $fail('Этот заказ никому не назначен!');
+            return;
+        }
+
         if ($orderAssignment->courier_id !== $this->courierId) {
             $fail('За этот заказ взялся другой курьер!');
         }

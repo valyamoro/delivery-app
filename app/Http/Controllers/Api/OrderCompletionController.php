@@ -31,7 +31,6 @@ class OrderCompletionController extends Controller
      */
     public function store(OrdersCompletePostRequest $request): OrderCompletionResource
     {
-        dd(1);
         $result = $this->orderCompletionService->create($request);
 
         return new OrderCompletionResource($result);

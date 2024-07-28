@@ -16,10 +16,14 @@ class CompleteTimeMoreThanAssignTime implements ValidationRule
 
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
-        $orderAssigment = OrderAssignment::where('courier_id', '=', $this->courierId)
+        $orderAssignment = OrderAssignment::where('courier_id', '=', $this->courierId)
             ->where('order_id', '=', $this->orderId)->first();
 
-        [$assignDay, $assignTime] = explode(' ', $orderAssigment->assign_time);
+        if ($orderAssignment === null) {
+            return;
+        }
+
+        [$assignDay, $assignTime] = explode(' ', $orderAssignment->assign_time);
         [$completeDay, $completeTime] = explode(' ', $value);
 
         $assignTimeStamp = Carbon::createFromFormat('H:i:s', $assignTime);
