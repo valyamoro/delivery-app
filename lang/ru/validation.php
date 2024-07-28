@@ -158,5 +158,6 @@ return [
         'now' => 'текущего времени',
         'working_hours' => 'рабочих часов',
         'data.*.working_hours' => 'рабочих часов',
+        'data.*.delivery_hours' => 'времени доставки',
     ],
 ];

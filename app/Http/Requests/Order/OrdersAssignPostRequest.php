@@ -22,7 +22,6 @@ class OrdersAssignPostRequest extends BaseFormRequest
                 'required',
                 'integer',
                 'exists:orders,id',
-                'exclude_if:order_id,completed',
                 new CheckOrderAssigned(),
                 new CheckOrderCompleted(),
             ],

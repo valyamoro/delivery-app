@@ -11,7 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'weight',
-        'region',
+        'region_id',
         'delivery_hours',
     ];
 

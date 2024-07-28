@@ -11,7 +11,11 @@ class OrderService
     public function create(Request $request): Collection
     {
         return collect($request->input('data'))->map(function ($item) {
-            return Order::create($item);
+            $item = collect($item);
+
+            $item->put('region_id', $item->get('region'));
+
+            return Order::create($item->toArray());
         });
     }
 

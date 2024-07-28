@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Courier;
+use App\Models\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,10 +12,14 @@ return new class extends Migration
     {
         Schema::create('order_assignments', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
-//                ->constrained('orders')->onDelete('cascade');
-            $table->integer('courier_id');
-//            ->constrained('couriers')->onDelete('cascade');
+            $table->foreignIdFor(Order::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(Courier::class)
+                ->constrained()
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
             $table->timestamp('assign_time');
             $table->timestamps();
         });
