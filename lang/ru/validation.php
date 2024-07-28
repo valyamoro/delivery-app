@@ -156,5 +156,7 @@ return [
         'complete_time' => 'время доставки',
         'assign_time' => 'назначенного времени',
         'now' => 'текущего времени',
+        'working_hours' => 'рабочих часов',
+        'data.*.working_hours' => 'рабочих часов',
     ],
 ];
